@@ -5,7 +5,7 @@
       <div class="max-w-4xl mx-auto px-4">
         <div class="flex border-b border-gray-200">
           <button
-            @click="activeTab = 'races'"
+            @click="switchTab('races')"
             :class="[
               'flex-1 py-4 text-center font-medium text-lg transition-colors',
               activeTab === 'races'
@@ -16,7 +16,7 @@
             Расы
           </button>
           <button
-            @click="activeTab = 'abilities'"
+            @click="switchTab('abilities')"
             :class="[
               'flex-1 py-4 text-center font-medium text-lg transition-colors',
               activeTab === 'abilities'
@@ -69,7 +69,7 @@
       <div v-else class="space-y-4">
         <div
           v-for="item in filteredItems"
-          :key="item.id"
+          :key="`${activeTab}-${item.id}`"
           class="bg-white rounded-lg shadow-sm border border-gray-200 p-4 hover:shadow-md transition-shadow"
         >
           <div class="flex gap-4">
@@ -128,6 +128,11 @@ const searchQuery = ref('');
 const races = ref([]);
 const abilities = ref([]);
 const loading = ref(true);
+
+const switchTab = (tab) => {
+  activeTab.value = tab;
+  searchQuery.value = ''; // Reset search when switching tabs
+};
 
 const currentItems = computed(() => {
   return activeTab.value === 'races' ? races.value : abilities.value;
