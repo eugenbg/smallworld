@@ -51,13 +51,9 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
      *
      * This gate determines who can access Nova in non-local environments.
      */
-    protected function gate(): void
+    protected function gate()
     {
-        Gate::define('viewNova', function (User $user) {
-            return in_array($user->email, [
-                //
-            ]);
-        });
+        Gate::define('viewNova', fn ($user) => true);
     }
 
     /**
