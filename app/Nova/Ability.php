@@ -46,7 +46,7 @@ class Ability extends Resource
     {
         return [
             ID::make()->sortable(),
-            
+
             Text::make('Name')
                 ->sortable()
                 ->rules('required', 'max:255'),
@@ -56,6 +56,7 @@ class Ability extends Resource
                 ->rules('required', 'integer', 'min:0'),
 
             Textarea::make('Description')
+                ->alwaysShow()
                 ->nullable(),
 
             Image::make('Image')

@@ -104,7 +104,7 @@
                 </span>
               </div>
               
-              <p v-if="item.description" class="mt-2 text-sm text-gray-600 line-clamp-3">
+              <p v-if="item.description" class="mt-2 text-sm text-gray-600 whitespace-pre-wrap">
                 {{ item.description }}
               </p>
               
