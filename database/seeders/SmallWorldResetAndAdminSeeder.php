@@ -20,7 +20,7 @@ class SmallWorldResetAndAdminSeeder extends Seeder
         DB::table('smallworld.editions')->truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS=1');
 
-        $this->call(SmallWorldFullSeeder::class);
+        $this->call(SmallWorldSeeder::class);
 
         $email = 'admin@smallworld.cerrajerotenerifesur.com';
         $password = self::makePassword(24);
