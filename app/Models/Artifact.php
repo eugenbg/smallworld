@@ -9,7 +9,6 @@ class Artifact extends Model
 {
     protected $fillable = [
         'name',
-        'qty',
         'description',
         'image',
         'edition_id',

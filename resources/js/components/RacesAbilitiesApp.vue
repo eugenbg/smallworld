@@ -111,7 +111,7 @@
                 <h3 class="text-lg font-semibold text-gray-900">
                   {{ item.name }}
                 </h3>
-                <span class="flex-shrink-0 inline-flex items-center px-2.5 py-0.5 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
+                <span v-if="item.qty != null" class="flex-shrink-0 inline-flex items-center px-2.5 py-0.5 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
                   {{ item.qty }}
                 </span>
               </div>

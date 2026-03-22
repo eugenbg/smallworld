@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('artifacts', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('qty');
             $table->text('description')->nullable();
             $table->string('image')->nullable();
             $table->foreignId('edition_id')->nullable()->constrained()->nullOnDelete();

@@ -5,7 +5,7 @@ namespace App\Nova;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Number;
+
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\BelongsTo;
@@ -50,10 +50,6 @@ class Artifact extends Resource
             Text::make('Name')
                 ->sortable()
                 ->rules('required', 'max:255'),
-
-            Number::make('Qty')
-                ->sortable()
-                ->rules('required', 'integer', 'min:0'),
 
             Textarea::make('Description')
                 ->alwaysShow()
