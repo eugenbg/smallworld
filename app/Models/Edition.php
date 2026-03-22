@@ -20,4 +20,9 @@ class Edition extends Model
     {
         return $this->hasMany(Ability::class);
     }
+
+    public function artifacts(): HasMany
+    {
+        return $this->hasMany(Artifact::class);
+    }
 }

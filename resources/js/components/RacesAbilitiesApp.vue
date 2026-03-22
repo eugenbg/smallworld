@@ -27,6 +27,17 @@
           >
             Способности
           </button>
+          <button
+            @click="switchTab('artifacts')"
+            :class="[
+              'flex-1 py-4 text-center font-medium text-lg transition-colors',
+              activeTab === 'artifacts'
+                ? 'text-blue-600 border-b-2 border-blue-600'
+                : 'text-gray-500 hover:text-gray-700'
+            ]"
+          >
+            Артефакты
+          </button>
         </div>
       </div>
 
@@ -36,7 +47,7 @@
           <input
             v-model="searchQuery"
             type="text"
-            :placeholder="activeTab === 'races' ? 'Поиск рас...' : 'Поиск способностей...'"
+            :placeholder="searchPlaceholder"
             class="w-full px-4 py-3 pr-10 text-base border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
           <svg
@@ -128,6 +139,7 @@ const activeTab = ref('races');
 const searchQuery = ref('');
 const races = ref([]);
 const abilities = ref([]);
+const artifacts = ref([]);
 const loading = ref(true);
 
 const switchTab = (tab) => {
@@ -135,8 +147,22 @@ const switchTab = (tab) => {
   searchQuery.value = ''; // Reset search when switching tabs
 };
 
+const searchPlaceholder = computed(() => {
+  const placeholders = {
+    races: 'Поиск рас...',
+    abilities: 'Поиск способностей...',
+    artifacts: 'Поиск артефактов...',
+  };
+  return placeholders[activeTab.value];
+});
+
 const currentItems = computed(() => {
-  return activeTab.value === 'races' ? races.value : abilities.value;
+  const items = {
+    races: races.value,
+    abilities: abilities.value,
+    artifacts: artifacts.value,
+  };
+  return items[activeTab.value];
 });
 
 const filteredItems = computed(() => {
@@ -152,13 +178,15 @@ const filteredItems = computed(() => {
 
 onMounted(async () => {
   try {
-    const [racesResponse, abilitiesResponse] = await Promise.all([
+    const [racesResponse, abilitiesResponse, artifactsResponse] = await Promise.all([
       axios.get('/api/races'),
-      axios.get('/api/abilities')
+      axios.get('/api/abilities'),
+      axios.get('/api/artifacts')
     ]);
-    
+
     races.value = racesResponse.data;
     abilities.value = abilitiesResponse.data;
+    artifacts.value = artifactsResponse.data;
   } catch (error) {
     console.error('Error fetching data:', error);
   } finally {

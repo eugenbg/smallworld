@@ -5,17 +5,20 @@ namespace App\Nova;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Fields\Textarea;
+use Laravel\Nova\Fields\Image;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class Edition extends Resource
+class Artifact extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
-     * @var class-string<\App\Models\Edition>
+     * @var class-string<\App\Models\Artifact>
      */
-    public static $model = \App\Models\Edition::class;
+    public static $model = \App\Models\Artifact::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -43,16 +46,25 @@ class Edition extends Resource
     {
         return [
             ID::make()->sortable(),
-            
+
             Text::make('Name')
                 ->sortable()
                 ->rules('required', 'max:255'),
 
-            HasMany::make('Races'),
-            
-            HasMany::make('Abilities'),
+            Number::make('Qty')
+                ->sortable()
+                ->rules('required', 'integer', 'min:0'),
 
-            HasMany::make('Artifacts'),
+            Textarea::make('Description')
+                ->alwaysShow()
+                ->nullable(),
+
+            Image::make('Image')
+                ->disk('public')
+                ->nullable(),
+
+            BelongsTo::make('Edition')
+                ->nullable(),
         ];
     }
 
